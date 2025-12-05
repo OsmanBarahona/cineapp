@@ -17,4 +17,4 @@ const routes: Routes = [
     imports: [NativeScriptRouterModule.forRoot(routes)],
     exports: [NativeScriptRouterModule]
 })
-export class AppRoutingModule { }  // <-- DEBE exportar AppRoutingModule
+export class AppRoutingModule { } 

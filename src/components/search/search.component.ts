@@ -1,4 +1,3 @@
-// ❌ CORREGIR - Reemplazar completamente (quitar standalone)
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { Toast } from "@nativescript/core";

@@ -1,4 +1,3 @@
-// ❌ CORREGIR - Reemplazar completamente
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { ActionDialogOptions, action, Toast } from "@nativescript/core";
