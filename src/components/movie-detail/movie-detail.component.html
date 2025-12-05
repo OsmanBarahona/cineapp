@@ -1,0 +1,42 @@
+<Page class="page">
+    <ActionBar class="action-bar" title="Detalle de Película">
+        <NavigationButton text="Atrás" android.systemIcon="ic_menu_back"></NavigationButton>
+        <ActionItem ios.position="right">
+            <Button text="Editar" (tap)="showEditDialog()" class="btn btn-outline"></Button>
+        </ActionItem>
+    </ActionBar>
+
+    <ScrollView>
+        <StackLayout class="p-4">
+            <!-- Imagen principal -->
+            <Image [src]="movie?.imageUrl" stretch="aspectFill" height="300" class="rounded-image"></Image>
+            
+            <!-- Título y rating -->
+            <FlexboxLayout justifyContent="space-between" alignItems="center" class="m-t-20">
+                <Label [text]="movie?.title" class="h1"></Label>
+                <Label [text]="'⭐ ' + movie?.rating" class="h2 text-warning"></Label>
+            </FlexboxLayout>
+            
+            <!-- Información básica -->
+            <Label [text]="movie?.director + ' · ' + movie?.year" class="h3 m-t-10"></Label>
+            <Label [text]="movie?.duration + ' minutos · ' + movie?.genre" class="body m-t-5"></Label>
+            
+            <!-- Descripción -->
+            <Label text="Descripción" class="h3 m-t-30"></Label>
+            <Label [text]="movie?.description" class="body m-t-10" textWrap="true"></Label>
+            
+            <!-- Botones de acción -->
+            <FlexboxLayout justifyContent="space-around" class="m-t-30">
+                <Button text="Agregar a Favoritos" (tap)="toggleFavorite()" 
+                        class="btn btn-primary" [class.btn-favorite]="movie?.isFavorite"></Button>
+                
+                <Button text="Cambiar Categoría" (tap)="showCategoryDialog()" 
+                        class="btn btn-secondary"></Button>
+            </FlexboxLayout>
+            
+            <!-- Última actualización -->
+            <Label [text]="'Última actualización: ' + (movie?.lastUpdated | date:'short')" 
+                   class="body text-muted m-t-30 text-center"></Label>
+        </StackLayout>
+    </ScrollView>
+</Page>

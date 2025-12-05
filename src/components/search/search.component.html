@@ -1,0 +1,63 @@
+<Page class="page">
+    <ActionBar class="action-bar" title="Buscar Películas">
+        <ActionItem ios.position="right" android.position="actionBar">
+            <Button text="Listado" (tap)="goToList()" class="btn btn-primary"></Button>
+        </ActionItem>
+    </ActionBar>
+
+    <StackLayout class="p-4">
+        <!-- Formulario de búsqueda con two-way binding -->
+        <TextField
+            [(ngModel)]="searchQuery"
+            hint="Buscar películas por título, director o género..."
+            class="input input-border"
+            minLength="3"
+            autocorrect="false"
+            autocapitalizationType="none"
+            (textChange)="onSearch()">
+        </TextField>
+        
+        <Label *ngIf="searchQuery && searchQuery.length < 3" text="Mínimo 3 caracteres" class="text-danger m-t-5"></Label>
+
+        <!-- Botón con animación -->
+        <Button text="Buscar" (tap)="onSearch()" class="btn btn-primary m-t-10"
+                [class.btn-animated]="isSearching" (loaded)="onButtonLoaded($event)">
+        </Button>
+
+        <!-- ListView con Pull to Refresh -->
+        <ListView [items]="filteredMovies" class="list-group m-t-20" (itemTap)="onMovieTap($event)"
+                  pullToRefresh="true" (pullToRefreshInitiated)="onPullToRefresh($event)">
+            
+            <ng-template let-movie="item">
+                <!-- Plantilla anidada con FlexboxLayout -->
+                <FlexboxLayout class="list-group-item" flexDirection="row" alignItems="center">
+                    
+                    <!-- Imagen de la película -->
+                    <Image [src]="movie.imageUrl" class="thumb img-circle" 
+                           stretch="aspectFill" width="80" height="80"></Image>
+                    
+                    <!-- Contenido principal -->
+                    <StackLayout flexGrow="1" marginLeft="15">
+                        <Label [text]="movie.title" class="h3"></Label>
+                        <Label [text]="movie.director + ' (' + movie.year + ')'" class="body"></Label>
+                        <FlexboxLayout flexDirection="row" justifyContent="space-between">
+                            <Label [text]="movie.genre" class="badge"></Label>
+                            <Label [text]="'⭐ ' + movie.rating" class="rating"></Label>
+                        </FlexboxLayout>
+                    </StackLayout>
+                    
+                    <!-- Ícono de favorito con gestos -->
+                    <Label [text]="movie.isFavorite ? '❤️' : '🤍'" class="favorite-icon h2"
+                           (tap)="toggleFavorite(movie)"
+                           (doubleTap)="onDoubleTapFavorite(movie)"
+                           [class.animated]="movie.isFavorite"></Label>
+                    
+                </FlexboxLayout>
+            </ng-template>
+            
+        </ListView>
+        
+        <Label *ngIf="filteredMovies.length === 0 && searchQuery" 
+               text="No se encontraron películas" class="h3 text-center m-t-20"></Label>
+    </StackLayout>
+</Page>

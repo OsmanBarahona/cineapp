@@ -1,8 +1,22 @@
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:gravity="fill">
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <bitmap android:gravity="fill" android:src="@drawable/background" />
+        <shape android:shape="rectangle">
+            <solid android:color="#3D5AFE" />
+        </shape>
     </item>
-    <item>
-        <bitmap android:gravity="center" android:src="@drawable/logo" />
+    
+    <item android:drawable="@drawable/icon" android:gravity="center" />
+    
+    <item android:top="250dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CineApp"
+            android:textColor="#FFFFFF"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center" />
     </item>
 </layer-list>

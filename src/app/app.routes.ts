@@ -1,6 +1,20 @@
-import { Routes } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { NativeScriptRouterModule } from "@nativescript/angular";
+import { Routes } from "@angular/router";
 
-export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent) },
+import { MovieListComponent } from "../../components/movie-list/movie-list.component";
+import { MovieDetailComponent } from "../../components/movie-detail/movie-detail.component";
+import { SearchComponent } from "../../components/search/search.component";
+
+const routes: Routes = [
+    { path: "", redirectTo: "/search", pathMatch: "full" },
+    { path: "movies", component: MovieListComponent },
+    { path: "movie/:id", component: MovieDetailComponent },
+    { path: "search", component: SearchComponent }
 ];
+
+@NgModule({
+    imports: [NativeScriptRouterModule.forRoot(routes)],
+    exports: [NativeScriptRouterModule]
+})
+export class AppRoutingModule { }  // <-- DEBE exportar AppRoutingModule

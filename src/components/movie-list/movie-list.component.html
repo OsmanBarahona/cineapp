@@ -1,0 +1,41 @@
+<Page class="page">
+    <ActionBar class="action-bar" title="Lista de Películas">
+        <ActionItem ios.position="right" android.position="actionBar">
+            <Button text="Buscar" (tap)="goToSearch()" class="btn btn-outline"></Button>
+        </ActionItem>
+    </ActionBar>
+
+    <StackLayout class="p-4">
+        <!-- Botón para diálogo de acción -->
+        <Button text="Filtrar por Categoría" (tap)="showCategoryDialog()" 
+                class="btn btn-secondary m-b-10" (longPress)="onLongPressFilter()"></Button>
+
+        <!-- ListView con Pull to Refresh -->
+        <ListView [items]="movies" class="list-group" (itemTap)="onMovieTap($event)"
+                  pullToRefresh="true" (pullToRefreshInitiated)="onPullToRefresh($event)">
+            
+            <ng-template let-movie="item">
+                <GridLayout rows="auto" columns="auto, *, auto" class="list-group-item">
+                    
+                    <!-- Ícono de categoría -->
+                    <Label [text]="getGenreIcon(movie.genre)" class="h1" col="0" marginRight="10"></Label>
+                    
+                    <!-- Información de la película -->
+                    <StackLayout col="1">
+                        <Label [text]="movie.title" class="h3"></Label>
+                        <Label [text]="movie.director + ' · ' + movie.year" class="body"></Label>
+                        <Label [text]="movie.genre" class="badge"></Label>
+                    </StackLayout>
+                    
+                    <!-- Ícono de favorito con gestos -->
+                    <Label [text]="movie.isFavorite ? '❤️' : '🤍'" class="h2" col="2"
+                           (tap)="toggleFavorite(movie)"
+                           (doubleTap)="onDoubleTapFavorite(movie)"
+                           [class.animated]="movie.isFavorite"></Label>
+                    
+                </GridLayout>
+            </ng-template>
+            
+        </ListView>
+    </StackLayout>
+</Page>
